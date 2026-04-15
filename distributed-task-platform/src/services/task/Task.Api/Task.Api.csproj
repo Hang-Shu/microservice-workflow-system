@@ -16,11 +16,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\building-blocks\Shared.Common\Shared.Common.csproj" />
+    <ProjectReference Include="..\..\..\building-blocks\Shared.Contracts\Shared.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

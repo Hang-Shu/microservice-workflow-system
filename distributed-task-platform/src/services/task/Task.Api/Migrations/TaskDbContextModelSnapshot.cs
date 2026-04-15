@@ -17,12 +17,48 @@ namespace Task.Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "8.0.25")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Task.Api.Entities.TaskItem", b =>
+            modelBuilder.Entity("Task.Api.Entities.Projects", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ProjectDescription")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("ProjectName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ProjectVersion")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Projects", "public");
+                });
+
+            modelBuilder.Entity("Task.Api.Entities.TaskItems", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,28 +70,102 @@ namespace Task.Api.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Priority")
-                        .IsRequired()
+                    b.Property<int>("Priority")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Remark")
                         .HasColumnType("text");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TaskNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("TaskNumber"));
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tasks");
+                    b.HasIndex("TaskNumber")
+                        .IsUnique();
+
+                    b.ToTable("Tasks", "public");
+                });
+
+            modelBuilder.Entity("Task.Api.Entities.Users", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("CreatedUserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Department")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("DisplayName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsValid")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("JoinTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserEmail")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("UserNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("UserNumber"));
+
+                    b.Property<string>("UserPhone")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserNumber")
+                        .IsUnique();
+
+                    b.ToTable("Users", "public");
                 });
 #pragma warning restore 612, 618
         }

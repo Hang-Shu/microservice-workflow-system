@@ -1,0 +1,41 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Task.Api.Entities
+{
+    public class Users
+    {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
+        public string UserName { get; set; }
+
+        [Required]
+        public string DisplayName { get; set; }
+
+        [Required]
+        public int UserNumber { get; private set; }
+
+        [MaxLength(100)]
+        public string? Department {  get; set; }
+
+        [MaxLength(100)]
+        public string? UserPhone { get; set; }
+
+        [MaxLength(100)]
+        public string? UserEmail { get; set; }
+
+        public DateTime? JoinTime { get; set; }
+
+        public string? Remark { get; set; }
+
+        [Required]
+        public bool IsValid { get; set; } = true;
+
+        public Guid CreatedUserId { get; set; }
+
+        [Required]
+        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+    }
+}

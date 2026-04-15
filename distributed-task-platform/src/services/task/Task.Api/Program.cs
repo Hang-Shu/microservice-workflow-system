@@ -1,5 +1,8 @@
 using Mapster;
 using Microsoft.EntityFrameworkCore;
+using Shared.Common;
+using Shared.Contracts.Events;
+using Task.Api;
 using Task.Api.Data;
 using Task.Api.Services;
 
@@ -21,6 +24,7 @@ builder.Services.AddDbContext<TaskDbContext>(options =>
 
 
 builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddSingleton<IEventPublisher, RabbitMqEventPublisher>();
 
 var app = builder.Build();
 
