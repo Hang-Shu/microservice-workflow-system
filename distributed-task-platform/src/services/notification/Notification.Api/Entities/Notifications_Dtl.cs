@@ -12,10 +12,12 @@ namespace Notification.Api.Entities
         public Guid MainId { get; set; }
 
         [Required]
-        public Guid ReciveUserId { get; set; }
+        public int ReciveUserNumber { get; set; }
 
         public bool IsRead { get; set; } = false;
 
-        public DateTime readTime { get; set; }
+        public DateTime? ReadTime { get; set; }
+
+        public DateTime SendTime { get; set; }
     }
 }

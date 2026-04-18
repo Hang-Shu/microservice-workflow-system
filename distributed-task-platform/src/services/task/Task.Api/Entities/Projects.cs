@@ -20,7 +20,9 @@ namespace Task.Api.Entities
 
         public string? Remark { get; set; }
 
-        public Guid CreatedUserId { get; set; }
+        public int CreatedUserNumber { get; set; }
+
+        public bool IsVaild { get; set; } = true;
 
         [Required]
         public DateTime CreatedTime { get; set; } = DateTime.UtcNow;

@@ -11,6 +11,7 @@ namespace Notification.Api.Data
 
         public DbSet<Notifications> Notifications => base.Set<Notifications>();
         public DbSet<Notifications_Dtl> Notifications_Dtl => base.Set<Notifications_Dtl>();
+        public DbSet<NotificationInbox> NotificationInbox => base.Set<NotificationInbox>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -17,6 +17,7 @@ namespace Task.Api.Data
         public DbSet<TaskOperates_Dtl> TaskOperates_Dtl => base.Set<TaskOperates_Dtl>();
         public DbSet<TaskComment> TaskComment => base.Set<TaskComment>();
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

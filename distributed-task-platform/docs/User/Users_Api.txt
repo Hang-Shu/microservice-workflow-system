@@ -1,0 +1,32 @@
+//Create a new user
+
+/api/users  [POST]
+
+{
+  "userName": "Hang",
+  "displayName": "Link",
+  "department": "Program development",
+  "userPhone": "4052106590",
+  "userEmail": "635473798@qq.com",
+  "joinTime": "2026-04-15T10:56:02.342Z",
+  "remark": "This is admin",
+  "createdUserNumber": 1
+}
+---------------------------------------------------------------------------
+//Update user infomation
+
+/api/users/{userNumber}/Update [POST]
+
+{
+  "userName": "Hang",
+  "displayName": "LinkSH",
+  "department": "Program development",
+  "userPhone": "4052106590",
+  "userEmail": "635473798@qq.com",
+  "joinTime": "2026-04-15T11:34:19.233Z",
+  "remark": "This is admin"
+}
+--------------------------------------------------------------------------
+//Delete user
+
+/api/users/{userNumber}/Delete

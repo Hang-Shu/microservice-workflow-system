@@ -1,19 +1,31 @@
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using notification.Api.Consumers;
 using Notification.Api.Data;
+using Notification.Api.Infrastructure;
+using Notification.Api.Services;
+using Shared.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
-
-builder.Services.AddHostedService<TaskCreatedEventConsumer>();
+builder.Services.AddMapster();
 
 builder.Services.AddDbContext<NotificationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("NotificationDb")));
+
+builder.Services.AddHostedService<TaskCreatedEventConsumer>();
+
+builder.Services.AddSingleton<IMqTopologyInitializer, NotificationMqTopologyInitializer>();
+
+
+
+builder.Services.AddScoped<INotificationService, NotificationService>();
 
 var app = builder.Build();
 
@@ -28,6 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapHealthChecks("/health");
+app.MapControllers();
 
 // Auto refresh DB
 if (app.Environment.IsDevelopment())
@@ -36,6 +49,11 @@ if (app.Environment.IsDevelopment())
     var dbContext = scope.ServiceProvider.GetRequiredService<NotificationDbContext>();
     dbContext.Database.Migrate();
 }
+
+//Init Mq structure
+using var scopes = app.Services.CreateScope();
+var initializer = scopes.ServiceProvider.GetRequiredService<IMqTopologyInitializer>();
+initializer.Initialize();
 
 app.Run();
 

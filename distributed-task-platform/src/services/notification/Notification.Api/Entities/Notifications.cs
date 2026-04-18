@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Notification.Api.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Notification.Api.Entities
 {
@@ -7,7 +8,7 @@ namespace Notification.Api.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public Guid? FromUserId { get; set; }
+        public int? FromUserNumber { get; set; }
 
         public string MsgTitle { get; set; }
 
@@ -17,7 +18,9 @@ namespace Notification.Api.Entities
 
         public bool IsValid { get; set; } = true;
 
-        public DateTime MsgTime { get; set; }
+        public NotificationCategoryEnum NotificationCategory { get; set; }
+
+        public DateTime CreateTime { get; set; }
 
         
     }

@@ -23,14 +23,31 @@ namespace Notification.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Notification.Api.Entities.NotificationInbox", b =>
+                {
+                    b.Property<string>("EventKey")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("EventKey");
+
+                    b.ToTable("NotificationInbox", "public");
+                });
+
             modelBuilder.Entity("Notification.Api.Entities.Notifications", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("FromUserId")
-                        .HasColumnType("uuid");
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("FromUserNumber")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsSystemMsg")
                         .HasColumnType("boolean");
@@ -42,12 +59,12 @@ namespace Notification.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("MsgTime")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<string>("MsgTitle")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("NotificationCategory")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -66,10 +83,13 @@ namespace Notification.Api.Migrations
                     b.Property<Guid>("MainId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ReciveUserId")
-                        .HasColumnType("uuid");
+                    b.Property<DateTime?>("ReadTime")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("readTime")
+                    b.Property<int>("ReciveUserNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("SendTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");

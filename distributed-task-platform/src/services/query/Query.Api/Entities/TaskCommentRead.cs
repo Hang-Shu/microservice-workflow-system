@@ -7,7 +7,7 @@ namespace Query.Api.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public Guid TaskId { get; set; }
+        public int TaskNumber { get; set; }
 
         //Connect "TaskComment"-"Id"
         public Guid TaskCommentId { get; set; }

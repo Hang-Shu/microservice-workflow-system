@@ -1,0 +1,26 @@
+//Create a new project
+
+/api/projects  [POST]
+
+{
+  "projectName": "Test Project",
+  "projectDescription": "Just for test haha",
+  "projectVersion": "V1.5",
+  "remark": "",
+  "createdUserNumber": 2
+}
+---------------------------------------------------------------------------
+//Update project infomation
+
+/api/projects/{id}/Update [POST]
+
+{
+  "projectName": "Test Project",
+  "projectDescription": "Just for test haha",
+  "projectVersion": "V2",
+  "remark": ""
+}
+--------------------------------------------------------------------------
+//Delete project
+
+/api/projects/{id}/Delete

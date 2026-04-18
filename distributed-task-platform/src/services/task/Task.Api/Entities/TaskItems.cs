@@ -16,11 +16,11 @@ namespace Task.Api.Entities
 
         [Required]
         [MaxLength(100)]
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
 
         [Required]
         [MaxLength(500)]
-        public string Description { get; set; } = string.Empty;
+        public string Description { get; set; }
 
         public Guid? ProjectId { get; set; }
 
@@ -28,16 +28,16 @@ namespace Task.Api.Entities
 
         public TaskPriorityEnum Priority { get; set; } = TaskPriorityEnum.Middle;
 
-        public Guid? AssignedUserId { get; set; }
+        public int? AssignedUserNumber { get; set; }
 
         public string? Remark { get; set; }
 
-        public Guid CreatedUserId { get; set; }
+        public int CreatedUserNumber { get; set; }
 
         [Required]
         public DateTime DueDate { get; set; }
 
         [Required]
-        public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedTime { get; set; }
     }
 }

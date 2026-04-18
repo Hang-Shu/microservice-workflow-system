@@ -32,8 +32,11 @@ namespace Task.Api.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CreatedUserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedUserNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsVaild")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("ProjectDescription")
                         .IsRequired()
@@ -58,20 +61,45 @@ namespace Task.Api.Migrations
                     b.ToTable("Projects", "public");
                 });
 
+            modelBuilder.Entity("Task.Api.Entities.TaskComment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<DateTime>("CommentTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("TaskNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskComment", "public");
+                });
+
             modelBuilder.Entity("Task.Api.Entities.TaskItems", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("AssignedUserId")
-                        .HasColumnType("uuid");
+                    b.Property<int?>("AssignedUserNumber")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CreatedUserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedUserNumber")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -112,6 +140,55 @@ namespace Task.Api.Migrations
                     b.ToTable("Tasks", "public");
                 });
 
+            modelBuilder.Entity("Task.Api.Entities.TaskOperates", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("OperateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Remark")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TaskNumber")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserNumber")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskOperates", "public");
+                });
+
+            modelBuilder.Entity("Task.Api.Entities.TaskOperates_Dtl", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("MainId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("NewValue")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OldValue")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OpreateType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaskOperates_Dtl", "public");
+                });
+
             modelBuilder.Entity("Task.Api.Entities.Users", b =>
                 {
                     b.Property<Guid>("Id")
@@ -121,8 +198,8 @@ namespace Task.Api.Migrations
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CreatedUserId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("CreatedUserNumber")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Department")
                         .HasMaxLength(100)
@@ -132,7 +209,7 @@ namespace Task.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsValid")
+                    b.Property<bool>("IsVaild")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime?>("JoinTime")

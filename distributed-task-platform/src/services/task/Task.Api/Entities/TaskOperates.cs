@@ -7,9 +7,9 @@ namespace Task.Api.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public Guid TaskId { get; set; }
+        public int TaskNumber { get; set; }
 
-        public Guid UserID { get; set; }
+        public int UserNumber { get; set; }
 
         public string? Remark { get; set; }
 

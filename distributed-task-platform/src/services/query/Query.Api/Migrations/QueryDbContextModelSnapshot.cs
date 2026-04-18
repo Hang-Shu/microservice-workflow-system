@@ -43,8 +43,8 @@ namespace Query.Api.Migrations
                     b.Property<Guid>("TaskCommentId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("TaskId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TaskNumber")
+                        .HasColumnType("integer");
 
                     b.Property<int>("UserNumber")
                         .HasColumnType("integer");
@@ -81,8 +81,8 @@ namespace Query.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TaskId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TaskNumber")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -109,8 +109,8 @@ namespace Query.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("TaskId")
-                        .HasColumnType("uuid");
+                    b.Property<int>("TaskNumber")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TaskOperatesId")
                         .HasColumnType("uuid");

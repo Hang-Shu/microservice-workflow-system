@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared.Common
 {
-    public interface IEventPublisher
+    //Interface for initialize MQ structure
+    public interface IMqTopologyInitializer
     {
-        Task PublishAsync<T>(T @event);
+        public void Initialize();
     }
 }
