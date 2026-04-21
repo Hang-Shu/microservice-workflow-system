@@ -38,5 +38,20 @@ namespace Shared.Common
 
             return Task.CompletedTask;
         }
+
+        public Task PublishAsync<T>(T @event,string exchangeName,string routingKey)
+        {
+
+            var message = JsonSerializer.Serialize(@event);
+            var body = Encoding.UTF8.GetBytes(message);
+
+            _channel.BasicPublish(
+                exchange: exchangeName,
+                routingKey: routingKey,
+                body: body
+            );
+
+            return Task.CompletedTask;
+        }
     }
 }

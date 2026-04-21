@@ -9,5 +9,6 @@ namespace Shared.Common
     public interface IEventPublisher
     {
         Task PublishAsync<T>(T @event) where T : IExchangeInfo;
+        Task PublishAsync<T>(T @event, string exchangeName, string routingKey);
     }
 }

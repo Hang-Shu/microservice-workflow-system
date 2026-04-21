@@ -10,6 +10,7 @@
         public static class Queues
         {
             public const string Notification_TaskCreated = "notification.task.created.queue";
+            public const string Notification_TaskUpdated = "notification.task.updated.queue";
             public const string Notification_TaskCreated_Dead = "notification.task.created.dead.queue";
         }
         

@@ -9,17 +9,15 @@ namespace Query.Api.Entities
 
         public int TaskNumber { get; set; }
 
-        //Connect "TaskOperates"-"Id"
-        public Guid TaskOperatesId { get; set; }
-
         public int ModifyUserNumber { get; set; }
 
         [Required]
         public string DisplayNameSnapshot { get; set; }
 
-        [Required]
-        public string PreviewText {  get; set; }
+        public List<string> ListUpdateItems { get; set; } = new();
 
-        public DateTime CreateTime { get; set; }
+        public DateTime GroupStartTime { get; set; }
+
+        public DateTime GroupEndTime { get; set; }
     }
 }

@@ -26,6 +26,8 @@ namespace Shared.Contracts.Events
 
         public int Priority { get; set; }
 
+        public bool IsImportant { get; set; } = false;
+
         public DateTime CreatedTime { get; set; }
     }
 }

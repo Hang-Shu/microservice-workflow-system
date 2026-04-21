@@ -1,4 +1,5 @@
 ﻿using Shared.Common;
+using Shared.Contracts;
 using Shared.Contracts.Events;
 using Task.Api.Entities;
 
@@ -23,13 +24,46 @@ namespace Task.Api.Infrastructure
                 CreatedTime = taskItem.CreatedTime,
                 Priority = (int)taskItem.Priority
             };
-            if(userAssigned!=null)
+            if(taskItem.Priority==Enum.TaskPriorityEnum.High)
+                evt.IsImportant = true;
+            if (userAssigned!=null)
             {
                 evt.AssignedUserNumber = userAssigned.UserNumber;
                 evt.AssignedUserDisplayName = userAssigned.DisplayName;
                 evt.AssignedUserEmailAddress = userAssigned.UserEmail;
             }
             await _eventPublisher.PublishAsync(evt);
+        }
+
+        public async System.Threading.Tasks.Task PublishTaskItemUpdatedAsync(DateTime dtOperateTime,TaskItems taskItem, string projName, Users userAssigned, Users userUpdated,
+            string strRoutingKey, int oldAssignedUserNumber = -1)
+        {
+            var evt = new TaskUpdatedEvent
+            {
+                TaskNumber = taskItem.TaskNumber,
+                Title = taskItem.Title,
+                ProjectName = projName,
+                UpdateTime= dtOperateTime
+            };
+            if (taskItem.Priority == Enum.TaskPriorityEnum.High)
+                evt.IsImportant = true;
+            if(taskItem.Status==Enum.TaskStatusEnum.Completed)
+                evt.IsClosed = true;
+            evt.OldAssignedUserNumber = oldAssignedUserNumber;
+            if (userAssigned != null)
+            {
+                evt.AssignedUserNumber = userAssigned.UserNumber;
+                evt.AssignedUserDisplayName = userAssigned.DisplayName;
+                evt.AssignedUserEmail = userAssigned.UserEmail;
+            }
+
+            if(userUpdated!=null)
+            {
+                evt.UpdateUserNumber = userUpdated.UserNumber;
+                evt.UpdateUserDisplayName = userUpdated.DisplayName;
+            }
+
+            await _eventPublisher.PublishAsync(evt, TaskMqConstants.Exchange, strRoutingKey);
         }
     }
 }

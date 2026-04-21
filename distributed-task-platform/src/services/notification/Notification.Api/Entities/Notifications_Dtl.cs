@@ -14,6 +14,8 @@ namespace Notification.Api.Entities
         [Required]
         public int ReciveUserNumber { get; set; }
 
+        public bool IsImportant { get; set; } = false;
+
         public bool IsRead { get; set; } = false;
 
         public DateTime? ReadTime { get; set; }

@@ -35,7 +35,7 @@ namespace Task.Api.Entities
         public int CreatedUserNumber { get; set; }
 
         [Required]
-        public DateTime DueDate { get; set; }
+        public DateOnly DueDate { get; set; }
 
         [Required]
         public DateTime CreatedTime { get; set; }

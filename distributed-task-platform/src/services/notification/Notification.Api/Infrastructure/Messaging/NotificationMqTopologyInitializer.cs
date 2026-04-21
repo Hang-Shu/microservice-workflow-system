@@ -73,7 +73,31 @@ namespace Notification.Api.Infrastructure
                 routingKey: TaskMqConstants.RoutingKeys.TaskCreated
             );
 
-            
+            //Init queue that subscribe task updated
+            channel.QueueDeclare(
+                queue: NotificationSelfContract.Queues.Notification_TaskUpdated,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: new Dictionary<string, object>
+                {
+                    {"x-dead-letter-exchange",NotificationSelfContract .DeadExchange},
+                    {"x-dead-letter-routing-key",NotificationSelfContract.RoutingKeys.TaskCreatedDead }
+                }
+            );
+            channel.QueueBind(
+                queue: NotificationSelfContract.Queues.Notification_TaskUpdated,
+                exchange: TaskMqConstants.Exchange,
+                routingKey: TaskMqConstants.RoutingKeys.TaskUpdated_Assigned
+            );
+            channel.QueueBind(
+                queue: NotificationSelfContract.Queues.Notification_TaskUpdated,
+                exchange: TaskMqConstants.Exchange,
+                routingKey: TaskMqConstants.RoutingKeys.TaskUpdated_Priority
+            );
+
+
+
         }
     }
 }
