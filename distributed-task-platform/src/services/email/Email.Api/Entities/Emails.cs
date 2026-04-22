@@ -11,8 +11,6 @@ namespace Email.Api.Entities
 
         public int ReciveUserNumber { get; set; }
 
-        public Guid? TaskId { get; set; }
-
         [Required]
         public string EmailAccount {  get; set; }
 

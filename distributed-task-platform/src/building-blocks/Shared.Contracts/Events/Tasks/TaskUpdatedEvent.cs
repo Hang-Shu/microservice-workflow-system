@@ -18,6 +18,7 @@ namespace Shared.Contracts.Events
         public string AssignedUserDisplayName { get; set; }
         public int UpdateUserNumber { get; set; }
         public string UpdateUserDisplayName { get; set; }
+        public DateOnly DueDate { get; set; }
         public DateTime UpdateTime { get; set; }
         //Just for cancle Email
         public int OldAssignedUserNumber { get; set; }

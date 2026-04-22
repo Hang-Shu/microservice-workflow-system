@@ -13,7 +13,7 @@ namespace Task.Api.Dtos
         public int? AssignedUserNumber { get; set; }
         public string? Remark { get; set; }
         public int CreatedUserNumber { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateOnly DueDate { get; set; }
         public DateTime CreatedTime { get; set; }
     }
 }

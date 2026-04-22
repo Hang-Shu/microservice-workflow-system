@@ -1,5 +1,7 @@
-﻿using Email.Api.Entities;
+﻿using Email.Api.Dtos;
+using Email.Api.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json;
 
 namespace Email.Api.Data
 {
@@ -9,10 +11,10 @@ namespace Email.Api.Data
         {
         }
         public DbSet<Emails> Emails => base.Set<Emails>();
+        public DbSet<TasksEmailsPending> TasksEmailsPending => base.Set<TasksEmailsPending>();
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
             modelBuilder.HasDefaultSchema("public");
         }
     }

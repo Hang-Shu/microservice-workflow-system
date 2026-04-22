@@ -43,7 +43,8 @@ namespace Task.Api.Infrastructure
                 TaskNumber = taskItem.TaskNumber,
                 Title = taskItem.Title,
                 ProjectName = projName,
-                UpdateTime= dtOperateTime
+                UpdateTime = dtOperateTime,
+                DueDate = taskItem.DueDate
             };
             if (taskItem.Priority == Enum.TaskPriorityEnum.High)
                 evt.IsImportant = true;

@@ -18,6 +18,6 @@ namespace Task.Api.Dtos
 
         public string? Remark { get; set; }
 
-        public DateTime DueDate { get; set; }
+        public DateOnly DueDate { get; set; }
     }
 }

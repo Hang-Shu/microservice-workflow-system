@@ -20,6 +20,6 @@ namespace Task.Api.Dtos
 
         public int CreatedUserNumber { get; set; }
 
-        public DateTime DueDate { get; set; }
+        public DateOnly DueDate { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Query.Api.Consumers
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += async (model, ea) =>
             {
-                var exchangeKey = ea.RoutingKey;
+                var routingKey = ea.RoutingKey;
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 var taskEvent = JsonSerializer.Deserialize<TaskUpdatedEvent>(message);
@@ -55,7 +55,7 @@ namespace Query.Api.Consumers
                 using var scope = _scopeFactory.CreateScope();
                 var notificationService = scope.ServiceProvider.GetRequiredService<ITaskModifyLineService>();
 
-                var result = await notificationService.HandleOperateTaskUpdateAsync(taskEvent, exchangeKey);
+                var result = await notificationService.HandleOperateTaskUpdateAsync(taskEvent, routingKey);
                 if (!result.IsSuccess)
                     channel.BasicReject(ea.DeliveryTag, false);
                 else
