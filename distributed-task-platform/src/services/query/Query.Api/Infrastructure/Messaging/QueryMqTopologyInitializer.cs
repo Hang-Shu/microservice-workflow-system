@@ -70,6 +70,71 @@ namespace Query.Api.Infrastructure
                 exchange: TaskMqConstants.Exchange,
                 routingKey: QuerySelfContract.RoutingKeys.TaskUpdate
             );
+
+
+            //Init exchange and queue that subscribe email send
+            channel.ExchangeDeclare(
+                exchange: EmailMqConstants.Exchange,
+                type: ExchangeType.Direct,
+                durable: true,
+                autoDelete: false
+                );
+            channel.QueueDeclare(
+                queue: QuerySelfContract.Queues.Query_EmailSend_Dead,
+                durable: true,
+                exclusive: false,
+                autoDelete: false
+            );
+            channel.QueueDeclare(
+                queue: QuerySelfContract.Queues.Query_EmailSend,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: new Dictionary<string, object>
+                {
+                    {"x-dead-letter-exchange",QuerySelfContract.DeadExchange},
+                    {"x-dead-letter-routing-key",QuerySelfContract.RoutingKeys.EmailSendDead }
+                }
+            );
+            channel.QueueBind(
+                queue: QuerySelfContract.Queues.Query_EmailSend_Dead,
+                exchange: QuerySelfContract.DeadExchange,
+                routingKey: QuerySelfContract.RoutingKeys.EmailSendDead
+            );
+            channel.QueueBind(
+                queue: QuerySelfContract.Queues.Query_EmailSend,
+                exchange: EmailMqConstants.Exchange,
+                routingKey: EmailMqConstants.RoutingKeys.EmailSend
+            );
+
+            //Init queue that subscribe comment event
+            channel.QueueDeclare(
+                queue: QuerySelfContract.Queues.Query_Comment_Dead,
+                durable: true,
+                exclusive: false,
+                autoDelete: false
+            );
+            channel.QueueDeclare(
+                queue: QuerySelfContract.Queues.Query_Comment,
+                durable: true,
+                exclusive: false,
+                autoDelete: false,
+                arguments: new Dictionary<string, object>
+                {
+                    {"x-dead-letter-exchange",QuerySelfContract.DeadExchange},
+                    {"x-dead-letter-routing-key",QuerySelfContract.RoutingKeys.TaskCommentDead }
+                }
+            );
+            channel.QueueBind(
+                queue: QuerySelfContract.Queues.Query_Comment_Dead,
+                exchange: QuerySelfContract.DeadExchange,
+                routingKey: QuerySelfContract.RoutingKeys.TaskCommentDead
+            );
+            channel.QueueBind(
+                queue: QuerySelfContract.Queues.Query_Comment,
+                exchange: TaskMqConstants.Exchange,
+                routingKey: QuerySelfContract.RoutingKeys.Comment
+            );
         }
     }
 }

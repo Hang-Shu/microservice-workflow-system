@@ -66,5 +66,38 @@ namespace Task.Api.Infrastructure
 
             await _eventPublisher.PublishAsync(evt, TaskMqConstants.Exchange, strRoutingKey);
         }
+
+        public async System.Threading.Tasks.Task PublishTaskCommentCreatedAsync(int taskNumber, TaskComment taskComment,string strUserName)
+        {
+            CommentEvent commentEvent = new()
+            {
+                CommentId = taskComment.Id,
+                TaskNumber = taskComment.TaskNumber,
+                UserNumber = taskComment.UserNumber,
+                DisplayNameSnapshot = strUserName,
+                CommentText = taskComment.CommentText,
+                CreateTime = taskComment.CommentTime
+            };
+            await _eventPublisher.PublishAsync(commentEvent, TaskMqConstants.Exchange, TaskMqConstants.RoutingKeys.TaskCommentCreated);
+        }
+        public async System.Threading.Tasks.Task PublishTaskCommentUpdatedAsync(TaskComment taskComment)
+        {
+            CommentEvent commentEvent = new()
+            {
+                CommentId = taskComment.Id,
+                CommentText = taskComment.CommentText,
+                CreateTime = DateTime.UtcNow
+            };
+            await _eventPublisher.PublishAsync(commentEvent, TaskMqConstants.Exchange, TaskMqConstants.RoutingKeys.TaskCommentUpdated);
+        }
+
+        public async System.Threading.Tasks.Task PublishTaskCommentDeletedAsync(TaskComment taskComment)
+        {
+            CommentEvent commentEvent = new()
+            {
+                CommentId = taskComment.Id
+            };
+            await _eventPublisher.PublishAsync(commentEvent, TaskMqConstants.Exchange, TaskMqConstants.RoutingKeys.TaskCommentDeleted);
+        }
     }
 }

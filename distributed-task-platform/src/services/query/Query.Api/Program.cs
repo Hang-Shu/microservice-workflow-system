@@ -3,6 +3,7 @@ using Query.Api.Consumers;
 using Query.Api.Data;
 using Query.Api.Infrastructure;
 using Query.Api.Services;
+using Query.Api.Services.QueryServices;
 using Shared.Common;
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -18,8 +19,14 @@ builder.Services.AddDbContext<QueryDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("QueryDb")));
 
 builder.Services.AddHostedService<TaskUpdatedEventConsumer>();
+builder.Services.AddHostedService<EmailSendEventConsumer>();
+builder.Services.AddHostedService<TaskCommentEventConsumer>();
+
 builder.Services.AddSingleton<IMqTopologyInitializer, QueryMqTopologyInitializer>();
 builder.Services.AddScoped<ITaskModifyLineService, TaskModifyLineService>();
+builder.Services.AddScoped<IEmailSendService, EmailSendService>();
+builder.Services.AddScoped<ITaskCommentService, TaskCommentService>();
+builder.Services.AddScoped<IQueryTaskDatasService, QueryTaskDatasService>();
 
 var app = builder.Build();
 

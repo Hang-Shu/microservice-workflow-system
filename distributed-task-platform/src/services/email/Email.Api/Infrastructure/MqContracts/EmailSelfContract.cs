@@ -11,10 +11,10 @@
         }
         public static class Queues
         {
-            public const string Query_TaskUpdated = "email.task.updated.queue";
-            public const string Query_TaskCreated = "email.task.created.queue";
-            public const string Query_TaskUpdated_Dead = "email.task.update.dead.queue";
-            public const string Query_TaskCreated_Dead = "email.task.created.dead.queue";
+            public const string Email_TaskUpdated = "email.task.updated.queue";
+            public const string Email_TaskCreated = "email.task.created.queue";
+            public const string Email_TaskUpdated_Dead = "email.task.update.dead.queue";
+            public const string Email_TaskCreated_Dead = "email.task.created.dead.queue";
         }
     }
 }

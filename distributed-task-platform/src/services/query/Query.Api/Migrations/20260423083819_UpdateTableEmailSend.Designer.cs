@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Query.Api.Data;
@@ -12,9 +13,11 @@ using Query.Api.Data;
 namespace Query.Api.Migrations
 {
     [DbContext(typeof(QueryDbContext))]
-    partial class QueryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260423083819_UpdateTableEmailSend")]
+    partial class UpdateTableEmailSend
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,9 +40,6 @@ namespace Query.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsPreview")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("PreviewText")
                         .IsRequired()
                         .HasColumnType("text");
@@ -49,9 +49,6 @@ namespace Query.Api.Migrations
 
                     b.Property<int>("TaskNumber")
                         .HasColumnType("integer");
-
-                    b.Property<DateTime?>("UpdateTime")
-                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UserNumber")
                         .HasColumnType("integer");

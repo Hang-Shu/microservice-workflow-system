@@ -21,6 +21,10 @@ namespace Query.Api.Entities
         [Required]
         public string PreviewText { get; set; }
 
+        public bool IsPreview { get; set; } = false;
+
         public DateTime CreateTime  { get; set; }
+
+        public DateTime? UpdateTime { get; set; }
     }
 }

@@ -19,11 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Services\QueryServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\building-blocks\Shared.Common\Shared.Common.csproj" />
     <ProjectReference Include="..\..\..\building-blocks\Shared.Contracts\Shared.Contracts.csproj" />
   </ItemGroup>

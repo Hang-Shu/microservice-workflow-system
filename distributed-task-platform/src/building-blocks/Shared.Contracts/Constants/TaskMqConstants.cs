@@ -20,6 +20,9 @@ namespace Shared.Contracts
             public const string TaskUpdated_Assigned = "task.updated.assigned";
             public const string TaskUpdated_Remark = "task.updated.remark";
             public const string TaskUpdated_DueDate = "task.updated.dueDate";
+            public const string TaskCommentCreated = "task.comment.created";
+            public const string TaskCommentUpdated = "task.comment.updated";
+            public const string TaskCommentDeleted = "task.comment.deleted";
         }
     }
 }

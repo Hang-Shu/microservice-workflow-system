@@ -27,6 +27,7 @@ builder.Services.AddDbContext<TaskDbContext>(options =>
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<ITaskEventPublisher, TaskEventPublisher>();
 
 builder.Services.AddSingleton<IMqTopologyInitializer, TaskMqTopologyInitializer>();

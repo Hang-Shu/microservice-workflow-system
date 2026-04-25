@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Query.Api.Entities
 {
@@ -11,6 +12,9 @@ namespace Query.Api.Entities
 
         //Connect "Emails"-"Id"
         public Guid EmailId { get; set; }
+
+        //unique
+        public string IdempotentId { get; set; }
 
         public int ReciveUserNumber { get; set; }
 

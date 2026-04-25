@@ -14,6 +14,7 @@ namespace Query.Api.Data
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TaskEmailSummaryRead>().HasIndex(x => x.IdempotentId).IsUnique();
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.HasDefaultSchema("public");

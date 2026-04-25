@@ -79,7 +79,7 @@ namespace Email.Api.Consumers
                 return;
             };
             channel.BasicConsume(
-                queue: EmailSelfContract.Queues.Query_TaskUpdated,
+                queue: EmailSelfContract.Queues.Email_TaskUpdated,
                 autoAck: false,
                 consumer: consumer
             );
@@ -111,7 +111,7 @@ namespace Email.Api.Consumers
                     channel.BasicAck(ea.DeliveryTag, false);
             };
             channel.BasicConsume(
-                queue: EmailSelfContract.Queues.Query_TaskCreated,
+                queue: EmailSelfContract.Queues.Email_TaskCreated,
                 autoAck: false,
                 consumer: consumer
             );

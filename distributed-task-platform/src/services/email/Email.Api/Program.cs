@@ -2,6 +2,8 @@ using Email.Api.Consumers;
 using Email.Api.Data;
 using Email.Api.Infrastructure;
 using Email.Api.Services;
+using Email.Api.Services.EmailSender;
+using Email.Api.Workers.EmailSender;
 using Microsoft.EntityFrameworkCore;
 using Shared.Common;
 
@@ -20,7 +22,13 @@ builder.Services.AddDbContext<EmailDbContext>(options =>
 
 builder.Services.AddHostedService<TaskEventConsumer>();
 builder.Services.AddSingleton<IMqTopologyInitializer, EmailMqTopologyInitializer>();
-builder.Services.AddScoped<IEmailsPendingService, EmailsPendingService>();
+builder.Services.AddSingleton<IEventPublisher, RabbitMqEventPublisher>();
+builder.Services.AddScoped<Email.Api.Services.IEmailsPendingService, Email.Api.Services.EmailsPendingService>();
+builder.Services.AddScoped<Email.Api.Services.EmailSender.IEmailsPendingService, Email.Api.Services.EmailSender.EmailsPendingService>();
+builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
+builder.Services.AddScoped<IEmailEventPublisher, EmailEventPublisher>();
+
+builder.Services.AddHostedService<EmailPendingWorker>();
 
 var app = builder.Build();
 

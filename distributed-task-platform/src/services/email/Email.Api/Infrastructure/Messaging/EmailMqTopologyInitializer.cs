@@ -17,9 +17,9 @@ namespace Email.Api.Infrastructure
         {
             var factory = new ConnectionFactory()
             {
-                HostName = _configuration["RabbitMQ:Host"]!,
-                UserName = _configuration["RabbitMQ:UserName"]!,
-                Password = _configuration["RabbitMQ:Password"]!
+                HostName = _configuration["RabbitMQ:Host"],
+                UserName = _configuration["RabbitMQ:UserName"],
+                Password = _configuration["RabbitMQ:Password"]
             };
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
@@ -42,21 +42,21 @@ namespace Email.Api.Infrastructure
 
             //init dead letter queue that task update used
             channel.QueueDeclare(
-              queue: EmailSelfContract.Queues.Query_TaskUpdated_Dead,
+              queue: EmailSelfContract.Queues.Email_TaskUpdated_Dead,
               durable: true,
               exclusive: false,
               autoDelete: false
             );
             //init dead letter queue that task create used
             channel.QueueDeclare(
-              queue: EmailSelfContract.Queues.Query_TaskCreated_Dead,
+              queue: EmailSelfContract.Queues.Email_TaskCreated_Dead,
               durable: true,
               exclusive: false,
               autoDelete: false
             );
             //Init queue that subscribe task updated
             channel.QueueDeclare(
-                queue: EmailSelfContract.Queues.Query_TaskUpdated,
+                queue: EmailSelfContract.Queues.Email_TaskUpdated,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -68,7 +68,7 @@ namespace Email.Api.Infrastructure
             );
             //Init queue that subscribe task created
             channel.QueueDeclare(
-                queue: EmailSelfContract.Queues.Query_TaskCreated,
+                queue: EmailSelfContract.Queues.Email_TaskCreated,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -80,29 +80,36 @@ namespace Email.Api.Infrastructure
             );
 
             channel.QueueBind(
-                queue: EmailSelfContract.Queues.Query_TaskUpdated_Dead,
+                queue: EmailSelfContract.Queues.Email_TaskUpdated_Dead,
                 exchange: EmailSelfContract.DeadExchange,
                 routingKey: EmailSelfContract.RoutingKeys.TaskUpdatedDead
             );
             channel.QueueBind(
-                queue: EmailSelfContract.Queues.Query_TaskCreated_Dead,
+                queue: EmailSelfContract.Queues.Email_TaskCreated_Dead,
                 exchange: EmailSelfContract.DeadExchange,
                 routingKey: EmailSelfContract.RoutingKeys.TaskCreatedDead
             );
             channel.QueueBind(
-                queue: EmailSelfContract.Queues.Query_TaskCreated,
+                queue: EmailSelfContract.Queues.Email_TaskCreated,
                 exchange: TaskMqConstants.Exchange,
                 routingKey: TaskMqConstants.RoutingKeys.TaskCreated
             );
             channel.QueueBind(
-                queue: EmailSelfContract.Queues.Query_TaskUpdated,
+                queue: EmailSelfContract.Queues.Email_TaskUpdated,
                 exchange: TaskMqConstants.Exchange,
                 routingKey: TaskMqConstants.RoutingKeys.TaskUpdated_Assigned
             );
             channel.QueueBind(
-                queue: EmailSelfContract.Queues.Query_TaskUpdated,
+                queue: EmailSelfContract.Queues.Email_TaskUpdated,
                 exchange: TaskMqConstants.Exchange,
                 routingKey: TaskMqConstants.RoutingKeys.TaskUpdated_Priority
+            );
+            //Init exchange that Email.Api to Query.Api
+            channel.ExchangeDeclare(
+                exchange: EmailMqConstants.Exchange,
+                type: ExchangeType.Direct,
+                durable: true,
+                autoDelete: false
             );
         }
     }
